@@ -199,15 +199,14 @@ export default function SearchPlace() {
     setError(''); // 검색을 시작할 때 에러 메시지를 초기화
   
     try {
-      const api_url = `/v1/search/local?query=${encodeURIComponent(searchTerm)}`;
+      const display = 5;
+      const start = 1;
+      const api_url = `/v1/search/local.json?query=${encodeURIComponent(searchTerm)}&display=${display}&start=${start}`;
+      
       const response = await fetch(api_url, {
         headers: {
-          'X-Naver-Client-Id': 'WDVId7gO_fHzG7oRtf5w',
-          'X-Naver-Client-Secret': 'q4MDc81Fjb',
-        },
-        params: {
-          display: 5,
-          start: 1,
+          'X-Naver-Client-Id': import.meta.env.VITE_NAVER_CLIENT_ID,
+          'X-Naver-Client-Secret': import.meta.env.VITE_NAVER_CLIENT_SECRET,
         },
       });
   
@@ -227,6 +226,7 @@ export default function SearchPlace() {
       setError('검색어를 다시 입력해주세요.');
     }
   };
+  
   
   
 
