@@ -210,6 +210,7 @@ export default function SearchPlace() {
         headers: {
           'X-Naver-Client-Id': import.meta.env.VITE_NAVER_CLIENT_ID,
           'X-Naver-Client-Secret': import.meta.env.VITE_NAVER_CLIENT_SECRET,
+          'Content-Type': 'application/json' // JSON 형식으로 응답을 받겠다고 명시
         },
       });
   
@@ -232,6 +233,7 @@ export default function SearchPlace() {
       setError('검색어를 다시 입력해주세요.');
     }
   };
+  
   
   
 
