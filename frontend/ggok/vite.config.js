@@ -15,6 +15,11 @@ export default defineConfig(({ mode }) => {
           target: 'https://openapi.naver.com',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/v1/, '/v1')
+        },
+        '/:path*': {
+          target: 'https://openapi.naver.com',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/(.+)/, '/$1')
         }
       }
     }
