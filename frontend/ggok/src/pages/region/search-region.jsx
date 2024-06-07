@@ -199,7 +199,7 @@ export default function SearchPlace() {
     setError(''); // 검색을 시작할 때 에러 메시지를 초기화
   
     try {
-      const api_url = `${import.meta.env.VITE_API_URL}/v1/search/local?query=${encodeURIComponent(searchTerm)}`;
+      const api_url = `/v1/search/local?query=${encodeURIComponent(searchTerm)}`;
       const response = await fetch(api_url, {
         headers: {
           'X-Naver-Client-Id': 'WDVId7gO_fHzG7oRtf5w',
@@ -227,6 +227,7 @@ export default function SearchPlace() {
       setError('검색어를 다시 입력해주세요.');
     }
   };
+  
   
 
   const convertCoordinates = (mapx, mapy) => {
