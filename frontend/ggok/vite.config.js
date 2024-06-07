@@ -12,9 +12,9 @@ export default defineConfig(({ mode }) => {
     server: {
       proxy: {
         '/v1': {
-          target: env.VITE_API_URL,
+          target: 'https://openapi.naver.com',
           changeOrigin: true,
-          rewrite: path => path.replace(/^\/v1/, '/v1')
+          rewrite: (path) => path.replace(/^\/v1/, '/v1')
         }
       }
     }
