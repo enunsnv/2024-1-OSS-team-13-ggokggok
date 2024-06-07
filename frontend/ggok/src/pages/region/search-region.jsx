@@ -201,8 +201,11 @@ export default function SearchPlace() {
     try {
       const display = 5;
       const start = 1;
-      const api_url = `/v1/search/local.json?query=${encodeURIComponent(searchTerm)}&display=${display}&start=${start}`;
-      
+      const query = encodeURIComponent(searchTerm);
+      const api_url = `/v1/search/local.json?query=${query}&display=${display}&start=${start}`;
+  
+      console.log('API URL:', api_url); // 요청 URL 확인
+  
       const response = await fetch(api_url, {
         headers: {
           'X-Naver-Client-Id': import.meta.env.VITE_NAVER_CLIENT_ID,
@@ -210,11 +213,15 @@ export default function SearchPlace() {
         },
       });
   
+      console.log('Response status:', response.status); // 응답 상태 확인
+  
       if (!response.ok) {
         throw new Error('네이버 API 요청에 실패했습니다.');
       }
   
       const data = await response.json();
+  
+      console.log('Response data:', data); // 응답 데이터 확인
   
       if (data && data.items && data.items.length === 0) {
         setError('검색 결과가 없습니다.');
@@ -226,6 +233,7 @@ export default function SearchPlace() {
       setError('검색어를 다시 입력해주세요.');
     }
   };
+  
   
   
   
