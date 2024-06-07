@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from "react-router-dom";
 import { Title, Wrapper, Blank, TitleDiv } from "../../styles/Styles";
@@ -197,7 +197,7 @@ export default function SearchPlace() {
 
   const handleSearch = async () => {
     setError(''); // 검색을 시작할 때 에러 메시지를 초기화
-  
+
     try {
       const api_url = `/v1/search/local?query=${encodeURIComponent(searchTerm)}`;
       const response = await fetch(api_url, {
@@ -210,13 +210,18 @@ export default function SearchPlace() {
           start: 1,
         },
       });
-  
+
       if (!response.ok) {
         throw new Error('네이버 API 요청에 실패했습니다.');
       }
-  
+
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        throw new TypeError("응답이 JSON 형식이 아닙니다.");
+      }
+
       const data = await response.json();
-  
+
       if (data && data.items && data.items.length === 0) {
         setError('검색 결과가 없습니다.');
       } else {
@@ -227,7 +232,6 @@ export default function SearchPlace() {
       setError('검색어를 다시 입력해주세요.');
     }
   };
-  
 
   const convertCoordinates = (mapx, mapy) => {
     const longitude = (mapx / 10000000).toFixed(6);
@@ -261,7 +265,7 @@ export default function SearchPlace() {
     };
 
     try {
-      if(userSessionData.data.region1 === searchRegion || userSessionData.data.region2 === searchRegion){
+      if (userSessionData.data.region1 === searchRegion || userSessionData.data.region2 === searchRegion) {
         throw new Error('등록이 완료된 지역입니다.');
       }
 
@@ -330,14 +334,13 @@ export default function SearchPlace() {
     tempElement.innerHTML = str;
     return tempElement.textContent || tempElement.innerText || "";
   };
-  
+
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       setError(''); // 검색을 시작할 때 에러 메시지를 초기화
       handleSearch();
     }
   };
-  
 
   return (
     <Wrapper>
@@ -387,12 +390,12 @@ export default function SearchPlace() {
         {modalOpen && (
           <Modal onClose={() => setModalOpen(false)}>
             <Title>
-              <Blank/><Blank/><Blank/><Blank/>
+              <Blank /><Blank /><Blank /><Blank />
               {SVGImage}
               <TitleDiv>지역 정보</TitleDiv>
             </Title>
 
-            <Line/>
+            <Line />
 
             <ButtonContainer>
               <Location>{address.split(' ').slice(0, 3).join(' ')}</Location>
