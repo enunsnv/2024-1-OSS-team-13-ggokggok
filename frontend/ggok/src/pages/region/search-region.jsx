@@ -233,9 +233,7 @@ export default function SearchPlace() {
       setError('검색어를 다시 입력해주세요.');
     }
   };
-  
-  
-  
+    
   
 
   const convertCoordinates = (mapx, mapy) => {
