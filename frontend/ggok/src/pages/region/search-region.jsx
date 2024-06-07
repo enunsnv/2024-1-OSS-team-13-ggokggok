@@ -242,8 +242,6 @@ export default function SearchPlace() {
     setLng(longitude);
     setName(removeHTMLTags(item.title));
     setAddress(item.address);
-
-    console.log(item);
   };
 
   const onSubmit = (e) => {
